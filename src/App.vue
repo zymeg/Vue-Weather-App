@@ -1,29 +1,16 @@
 <template>
   <div id="app">
-    <mainPage />
+     <router-view />
   </div>
 </template>
 
 <script>
-import kalvinToCelsius from '../scripts/kalvinToCelsius.js'
-import kalvinToFahrenheit from '../scripts/kalvinToFahrenheit.js'
 import mainPage from '../src/components/mainPage.vue'
 
 export default {
   name: 'App',
   components: {
     mainPage
-  },
-  data: function(){
-    return {
-      celsiusTemperature: 0,
-      fahrenheitTemperature: 0,
-      temperature: 300
-    }
-  },
-  created(){
-     this.celsiusTemperature =  kalvinToCelsius(this.temperature)
-     this.fahrenheitTemperature = kalvinToFahrenheit(this.temperature)
   }
 }
 </script>
@@ -41,5 +28,7 @@ body, html {
   width: 100%;
   min-height: 100%;
   font-family: 'Roboto', sans-serif;
+  background: url('./assets/bckg.jpg') no-repeat center bottom fixed; 
+  user-select: none;
 }
 </style>
