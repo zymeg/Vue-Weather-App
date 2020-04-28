@@ -1,17 +1,16 @@
 <template>
 <div>
     <div id="search-bar">
-        <searchBar />
+        <searchBar/>
     </div>
-    <div id="weather-card">
-        <h1 id="city">{{ $route.params.city }}</h1>
+    <div id="weather-card" v-if='noError'>
+        <h1 id="city">{{ cityName }}</h1>
         <infoTabs @tabChanged='changeTab'/>
-        <currentInfo :class='{ show: activeContent.current, hide: !activeContent.current }'/>
-        <todayTab  :class='{ show: activeContent.today, hide: !activeContent.today  }'/>
-        <forecastTab  :class='{ show: activeContent.forecast, hide: !activeContent.forecast  }'/>
+        <currentInfo :class='{ show: activeContent.current, hide: !activeContent.current }' @cityname='changeCityName' @throwedError='err' />
+        <forecastTab  :class='{ show: activeContent.forecast, hide: !activeContent.forecast  }' />
     </div>
-    <div id="loading" style='display: none'>
-        Loading...
+    <div class="error" v-else>
+        {{ errMessage }}
     </div>
 </div>
 </template>
@@ -20,8 +19,8 @@
 import searchBar from './searchBar'
 import infoTabs from './infoTabs'
 import currentInfo from './currentInfo'
-import todayTab from './todayTab'
 import forecastTab from './forecastTab'
+
 
 export default {
     name: 'searchResult',
@@ -29,27 +28,34 @@ export default {
         searchBar,
         infoTabs,
         currentInfo,
-        todayTab,
         forecastTab
     },
     data: function(){
         return{
             activeContent: {
                 current: true,
-                today: false,
                 forecast: false
-            }
+            },
+            cityName: '',
+            noError: 1,
+            errMessage: ''
         }
     },
     methods: {
         changeTab(e){
             this.activeContent.current = false
-            this.activeContent.today = false
             this.activeContent.forecast = false
 
             if(e == 'current-tab') this.activeContent.current = true
-            if(e == 'today-tab') this.activeContent.today = true
             if(e == 'forecast-tab') this.activeContent.forecast = true
+        },
+        changeCityName(e){
+            this.cityName = e
+            noError = 1
+        },
+        err(e){
+            this.errMessage = e
+            noError = 0
         }
     }
 }
@@ -77,14 +83,25 @@ export default {
     } 
 
     .show{
-        display: block;
+        display: block!important
     }
 
     .hide {
-        display: none;
+        display: none!important
     }
 
     
+}
+
+.error {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 3.4rem;
+    color: #333;
+    font-weight: bold;
+    width: 50%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.63) 
 }
 
 

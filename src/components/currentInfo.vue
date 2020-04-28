@@ -15,6 +15,8 @@
 <script>
 import kalvinToCelsius from '../../scripts/kalvinToCelsius.js'
 import kalvinToFahrenheit from '../../scripts/kalvinToFahrenheit.js'
+import axios from 'axios'
+
 
 export default {
     name: 'currentInfo',
@@ -25,10 +27,10 @@ export default {
                 fahrenheit: false
             },
             weatherData: {
-                temp: 300,
-                realFeel: 302,
-                humidity: 46,
-                pressure: 1016
+                temp: 0,
+                realFeel: 0,
+                humidity: 0,
+                pressure: 0
             },
             temperature: {
                 celsius: 0,
@@ -57,16 +59,39 @@ export default {
                 this.display = this.temperature.fahrenheit 
                 this.displayRealFeel = this.realFeelTemperature.fahrenheit 
             }
+        },
+        getData(){
+            axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.$route.params.city}&appid=01386a561bef8525c7de01ac2970cb6f`)
+             .then(res => {
+                this.weatherData.temp = res.data.main.temp
+                this.weatherData.realFeel = res.data.main.feels_like
+                this.weatherData.pressure = res.data.main.pressure
+                this.weatherData.humidity = res.data.main.humidity
+
+                this.$emit('cityname', res.data.name)
+                this.temperature.celsius =  kalvinToCelsius(this.weatherData.temp)
+                this.temperature.fahrenheit = kalvinToFahrenheit(this.weatherData.temp)
+                this.realFeelTemperature.celsius =  kalvinToCelsius(this.weatherData.realFeel)
+                this.realFeelTemperature.fahrenheit = kalvinToFahrenheit(this.weatherData.realFeel)
+
+                this.display = this.temperature.celsius
+                this.displayRealFeel = this.realFeelTemperature.celsius
+
+                if(res.status != 200){
+                    this.$emit('throwedError', e.data.message)
+                }
+             })
+             .catch(e => this.$emit('throwedError', e.data.message));
         }
     },
     created: function(){
-        this.temperature.celsius =  kalvinToCelsius(this.weatherData.temp)
-        this.temperature.fahrenheit = kalvinToFahrenheit(this.weatherData.temp)
-        this.realFeelTemperature.celsius =  kalvinToCelsius(this.weatherData.realFeel)
-        this.realFeelTemperature.fahrenheit = kalvinToFahrenheit(this.weatherData.realFeel)
-
-        this.display = this.temperature.celsius
-        this.displayRealFeel = this.realFeelTemperature.celsius
+        this.getData()
+    
+    },
+    watch: {
+        '$route'() {
+            this.getData()
+        }
     }
 }
 </script>

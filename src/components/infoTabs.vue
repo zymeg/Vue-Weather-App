@@ -1,8 +1,7 @@
 <template>
     <ul id="info-tabs">
         <li id="current-tab" :class='{ active: active.currentTab }' @click='changeTab'>Current weather</li>
-        <li id="today-tab" :class='{ active: active.todayTab }' @click='changeTab'>Today's forecast</li>
-        <li id="forecast-tab" :class='{ active: active.forecastTab }' @click='changeTab'>30-days forecast</li>
+        <li id="forecast-tab" :class='{ active: active.forecastTab }' @click='changeTab'>Forecast</li>
     </ul>
 </template>
 
@@ -13,7 +12,6 @@ export default {
         return{
             active: {
                 currentTab: true,
-                todayTab: false,
                 forecastTab: false
             }
         }
@@ -21,11 +19,9 @@ export default {
     methods: {
         changeTab(e){
             this.active.currentTab = false;
-            this.active.todayTab = false;
             this.active.forecastTab = false;
             
             if(e.target.id == 'current-tab') this.active.currentTab = true;
-            if(e.target.id == 'today-tab') this.active.todayTab = true;
             if(e.target.id == 'forecast-tab') this.active.forecastTab = true;
 
             this.$emit('tabChanged', e.target.id)
