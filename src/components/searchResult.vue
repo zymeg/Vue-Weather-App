@@ -6,7 +6,7 @@
     <div id="weather-card" v-if='noError'>
         <h1 id="city">{{ cityName }}</h1>
         <infoTabs @tabChanged='changeTab'/>
-        <currentInfo :class='{ show: activeContent.current, hide: !activeContent.current }' @cityname='changeCityName' @throwedError='err' />
+        <currentInfo :class='{ show: activeContent.current, hide: !activeContent.current }' @cityname='changeCityName' @throwedError='err' @changeBckg='emitBckg' />
         <forecastTab  :class='{ show: activeContent.forecast, hide: !activeContent.forecast  }' />
     </div>
     <div class="error" v-else>
@@ -56,6 +56,9 @@ export default {
         err(e){
             this.errMessage = e
             noError = 0
+        },
+        emitBckg(e){
+            this.$emit('changeBckg', e)
         }
     }
 }

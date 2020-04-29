@@ -77,6 +77,39 @@ export default {
                 this.display = this.temperature.celsius
                 this.displayRealFeel = this.realFeelTemperature.celsius
 
+                let bckg = ''
+
+                console.log(res.data.weather[0].main)
+
+                switch(res.data.weather[0].main){
+                    case "Clear":
+                        bckg = "url('./assets/clear.jpg') no-repeat center center fixed"
+                        break
+                    case "Clouds":
+                        bckg = "url('./assets/clouds.jpg') no-repeat center center fixed"
+                        break
+                    case "Drizzle":
+                        bckg = "url('./assets/drizzle.jpg') no-repeat center center fixed"
+                        break
+                    case "Mist":
+                        bckg = "url('./assets/mist.jpg') no-repeat center center fixed"
+                        break
+                    case "Rain":
+                        bckg = "url('./assets/rain.jpg') no-repeat center center fixed"
+                        break
+                    case "Snow":
+                        bckg = "url('./assets/snow.jpg') no-repeat center center fixed"
+                        break
+                    case "TShunderstorm":
+                        bckg = "url('./assets/thunderstorm.jpg') no-repeat center center fixed"
+                        break
+                    default:
+                        bckg = "url('./assets/bckg.jpg') no-repeat center center fixed"
+                        break
+                }
+
+                this.$emit('changeBckg', bckg)
+
                 if(res.status != 200){
                     this.$emit('throwedError', e.data.message)
                 }

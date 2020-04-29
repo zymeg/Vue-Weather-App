@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-     <router-view />
+  <div id="app" :style='style'>
+     <router-view @changeBckg='changeBckImg'/>
   </div>
 </template>
 
@@ -11,6 +11,18 @@ export default {
   name: 'App',
   components: {
     mainPage
+  },
+  data: function(){
+    return {
+      style: {
+        background: "url('./assets/bckg.jpg') no-repeat center bottom fixed"
+      }
+    }
+  },
+  methods: {
+    changeBckImg(e){
+      this.style.background = e
+    }
   }
 }
 </script>
@@ -28,7 +40,14 @@ body, html {
   width: 100%;
   min-height: 100%;
   font-family: 'Roboto', sans-serif;
-  background: url('./assets/bckg.jpg') no-repeat center bottom fixed; 
   user-select: none;
+  padding: 0;
+}
+
+#app{
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  position: absolute
 }
 </style>
