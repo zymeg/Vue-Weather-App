@@ -44,12 +44,16 @@ div{
             border: none;
             font-size: 2rem;
             background: rgba(255, 255, 255, 0.5);
-            transition: all 400ms
+            transition: all 400ms;
+
+            @media screen and (max-width: 700px) {
+                width: 75%;
+                font-size: 1rem;
+            }
         }
 
         input:focus {
             border: solid 1px #3333dd;
-            
             background: #fff;
 
         }
@@ -60,7 +64,11 @@ div{
             color: #fff;
             border: none;
             border-radius: 0 .4rem .4rem 0;
-            cursor: pointer
+            cursor: pointer;
+
+            @media screen and (max-width: 700px) {
+                padding: .3rem;
+            }
         }
 }   
 </style>

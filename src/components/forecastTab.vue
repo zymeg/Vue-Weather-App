@@ -34,7 +34,7 @@ export default {
     methods: {
         getData(){
             this.items = []
-            axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${this.$route.params.city}&appid=01386a561bef8525c7de01ac2970cb6f`)
+            axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${this.$route.params.city}&appid=${process.env.VUE_APP_API_KEY}`)
             .then(res => {
                 res.data.list.forEach(e => {
                     this.items.push({

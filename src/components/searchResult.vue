@@ -68,6 +68,11 @@ export default {
 #search-bar {
     width: 50%;
     margin: 2.5rem auto;
+
+    @media screen and (max-width: 700px){
+        width: 95%;
+        margin: 1rem auto;
+    }
 }
 
 #weather-card{
@@ -79,9 +84,18 @@ export default {
     padding: 2rem;
     background: rgba(255, 255, 255, 0.63);
 
+    @media screen and (max-width: 700px) {
+        margin: 1rem auto;
+        padding: 1rem;
+    }
+
     h1{
         font-size: 4.5rem;
         letter-spacing: .2rem;
+
+        @media screen and (max-width: 700px) {
+            font-size: 3.5rem
+        }
         
     } 
 

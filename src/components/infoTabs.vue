@@ -41,12 +41,21 @@ export default {
     font-size: 1.3rem;
     margin: 2rem auto;
 
+    @media screen and (max-width: 700px) {
+        font-size: 1rem;
+    }
+
     li{
         padding: 1rem;
         cursor: pointer;
         border-bottom: none;
         transition: border-bottom 200ms;
         width: 100%;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        justify-items: center;
         text-align: center;
 
         &:hover{

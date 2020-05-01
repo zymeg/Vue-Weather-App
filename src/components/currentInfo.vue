@@ -61,7 +61,7 @@ export default {
             }
         },
         getData(){
-            axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.$route.params.city}&appid=01386a561bef8525c7de01ac2970cb6f`)
+            axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.$route.params.city}&appid=${process.env.VUE_APP_API_KEY}`)
              .then(res => {
                 this.weatherData.temp = res.data.main.temp
                 this.weatherData.realFeel = res.data.main.feels_like
@@ -78,8 +78,6 @@ export default {
                 this.displayRealFeel = this.realFeelTemperature.celsius
 
                 let bckg = ''
-
-                console.log(res.data.weather[0].main)
 
                 switch(res.data.weather[0].main){
                     case "Clear":
@@ -140,6 +138,10 @@ export default {
         display: block;
         margin: 3rem 0 0;
 
+        @media screen and (max-width: 700px) {
+            font-size: 3.2rem
+        }
+
         ul{
             font-size: .8rem;
             font-weight: 400;
@@ -148,6 +150,10 @@ export default {
             list-style: none;
             margin: 1rem auto;
             justify-content: space-around;
+
+            @media screen and (max-width: 700px) {
+                margin: .5rem auto
+            }
 
             li{
                 padding: .4rem;
