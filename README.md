@@ -1,3 +1,3 @@
-# [vue-portfolio-project](https://sjaskula.pl/en/projects/weatherApp)
+# [vue-portfolio-project](https://szymonjaskula.pl/projects/weatherapp/)
 
 Simple weather app using [OpenWeather API](https://openweathermap.org/api)
